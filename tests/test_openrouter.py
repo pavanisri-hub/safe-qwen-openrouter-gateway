@@ -29,7 +29,7 @@ class OpenRouterClientTests(unittest.TestCase):
             os.environ["OPENROUTER_API_KEY"] = self.original_api_key
 
     @patch("client.openrouter.requests.post")
-    def test_calls_pinned_qwen_model_with_expected_request(
+    def test_calls_pinned_free_qwen_model_with_expected_request(
         self,
         mock_post: Mock,
     ) -> None:

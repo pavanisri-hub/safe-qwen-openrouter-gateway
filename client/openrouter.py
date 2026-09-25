@@ -6,7 +6,7 @@ from typing import Any, Dict
 import requests
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-QWEN_MODEL = "qwen/qwen-2.5-7b-instruct"
+QWEN_MODEL = "qwen/qwen3-14b:free"
 REQUEST_TIMEOUT_SECONDS = 30
 
 
