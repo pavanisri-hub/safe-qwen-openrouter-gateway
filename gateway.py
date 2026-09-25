@@ -20,13 +20,17 @@ SAFETY_REFUSAL = "Refused by safety policy."
 API_ERROR_RESPONSE = "Error calling API"
 
 
-def load_prompt_batch(input_path: Path = INPUT_PATH) -> List[Dict[str, str]]:
+def load_prompt_batch(
+    input_path: Optional[Path] = None,
+) -> List[Dict[str, str]]:  
     """
     Load and validate the red-team input batch.
 
     Raises:
         ValueError: If the JSON is invalid or does not match the required schema.
     """
+    input_path = input_path or INPUT_PATH
+
     try:
         with input_path.open("r", encoding="utf-8") as input_file:
             data = json.load(input_file)
@@ -82,9 +86,12 @@ def append_audit_log(
     prompt_id: str,
     rule: Optional[str],
     action: str,
-    audit_path: Path = AUDIT_PATH,
+    audit_path: Optional[Path] = None,
 ) -> None:
     """Append one schema-compliant safety decision to the JSONL audit log."""
+    audit_path = audit_path or AUDIT_PATH
+
+
     if action not in {"allowed", "blocked"}:
         raise ValueError("action must be either 'allowed' or 'blocked'")
 
@@ -100,9 +107,12 @@ def append_audit_log(
 
 def write_results(
     results: List[Dict[str, str]],
-    results_path: Path = RESULTS_PATH,
+    results_path: Optional[Path] = None,
 ) -> None:
     """Write the final prompt outcomes as a JSON array."""
+    results_path = results_path or RESULTS_PATH
+
+    
     with results_path.open("w", encoding="utf-8") as results_file:
         json.dump(results, results_file, indent=2)
         results_file.write("\n")
